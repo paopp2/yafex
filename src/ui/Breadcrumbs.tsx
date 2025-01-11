@@ -6,19 +6,26 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
+import { useFileSystem } from "@/core/fileSystem/useFileSystem";
 
 export function Breadcrumbs() {
-  const [currentPath, setCurrentPath] = useState(["Home", "Documents"]);
+  const { currentPath, navigateTo } = useFileSystem();
+  const pathSegments = ["Home", ...currentPath.split("/").filter(Boolean)];
 
   const handlePathClick = (index: number) => {
-    setCurrentPath((prev) => prev.slice(0, index + 1));
+    if (index === 0) {
+      navigateTo("/");
+      return;
+    }
+
+    navigateTo(pathSegments.slice(1, index + 1).join("/"));
   };
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        {currentPath.map((item, index) => (
+        {pathSegments.map((item, index) => (
           <Fragment key={index}>
             {index === currentPath.length - 1 ? (
               <BreadcrumbPage>{item}</BreadcrumbPage>

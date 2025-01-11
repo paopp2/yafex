@@ -9,11 +9,19 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { useFileSystem } from "@/core/fileSystem/useFileSystem";
 import { FolderPlusIcon } from "lucide-react";
 import { useState } from "react";
 
 export function FolderInputDialog() {
   const [isFolderDialogOpen, setIsFolderDialogOpen] = useState(false);
+  const [folderName, setFolderName] = useState("");
+  const { createFolder } = useFileSystem();
+
+  const handleCreateFolder = () => {
+    createFolder(folderName);
+    setIsFolderDialogOpen(false);
+  };
 
   return (
     <Dialog open={isFolderDialogOpen} onOpenChange={setIsFolderDialogOpen}>
@@ -24,30 +32,29 @@ export function FolderInputDialog() {
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <form>
-          <DialogHeader>
-            <DialogTitle>Create New Folder</DialogTitle>
-            <DialogDescription>
-              Enter a name for your new folder
-            </DialogDescription>
-          </DialogHeader>
-          <div className="py-4">
-            <Input
-              placeholder="Enter folder name"
-              name="path"
-              required={true}
-            />
-          </div>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setIsFolderDialogOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button type="submit">Create Folder</Button>
-          </DialogFooter>
-        </form>
+        <DialogHeader>
+          <DialogTitle>Create New Folder</DialogTitle>
+          <DialogDescription>
+            Enter a name for your new folder
+          </DialogDescription>
+        </DialogHeader>
+        <div className="py-4">
+          <Input
+            placeholder="Enter folder name"
+            required={true}
+            value={folderName}
+            onChange={(e) => setFolderName(e.target.value)}
+          />
+        </div>
+        <DialogFooter>
+          <Button
+            variant="outline"
+            onClick={() => setIsFolderDialogOpen(false)}
+          >
+            Cancel
+          </Button>
+          <Button onClick={handleCreateFolder}>Create Folder</Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
