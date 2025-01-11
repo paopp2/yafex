@@ -3,7 +3,7 @@ import { File } from "../fileSystem/fileNode";
 import fuzzysort from "fuzzysort";
 import { pathToFileMapAtom } from "../store";
 
-export const useFileSearchIndex = () => {
+export const useFileSearch = () => {
   const [pathToFileMap, setPathToFileMap] = useAtom(pathToFileMapAtom);
 
   const addToIndex = (file: File) => {

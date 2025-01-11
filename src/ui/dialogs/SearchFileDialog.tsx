@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useFileSearchIndex } from "@/core/fileSearch/useFileSearchIndex";
+import { useFileSearch } from "@/core/fileSearch/useFileSearch";
 import { useState } from "react";
 import { File } from "@/core/fileSystem/fileNode";
 import { useFileSystem } from "@/core/fileSystem/useFileSystem";
@@ -17,7 +17,7 @@ export function SearchFileDialog() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [results, setResults] = useState<File[]>([]);
-  const { search } = useFileSearchIndex();
+  const { search } = useFileSearch();
   const { navigateTo } = useFileSystem();
 
   const onChange = (query: string) => {

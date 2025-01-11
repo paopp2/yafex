@@ -1,14 +1,14 @@
 import { useMemo } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { File } from "./fileNode";
-import { useFileSearchIndex } from "../fileSearch/useFileSearchIndex";
+import { useFileSearch } from "../fileSearch/useFileSearch";
 import { fileSystemAtom, pathToFileMapAtom, currentPathAtom } from "../store";
 
 export const useFileSystem = () => {
   const pathToFileMap = useAtomValue(pathToFileMapAtom);
   const [fileSystem, setFileSystem] = useAtom(fileSystemAtom);
   const [currentPath, setCurrentPath] = useAtom(currentPathAtom);
-  const { addToIndex } = useFileSearchIndex();
+  const { addToIndex } = useFileSearch();
 
   const currentPathFiles: File[] = useMemo(() => {
     return fileSystem
