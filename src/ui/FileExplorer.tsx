@@ -3,6 +3,8 @@ import { FileInputDialog } from "./dialogs/FileInputDialog";
 import { FileList } from "./FileList";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { SearchFileDialog } from "./dialogs/SearchFileDialog";
+import { FileTextIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function FileExplorer() {
   return (
@@ -11,7 +13,12 @@ export default function FileExplorer() {
         <div className="flex flex-col gap-4 sm:flex-row">
           <div className="flex-1 flex gap-6">
             <FolderInputDialog />
-            <FileInputDialog />
+            <FileInputDialog>
+              <Button variant="outline">
+                <FileTextIcon className="h-4 w-4 mr-2" />
+                New File
+              </Button>
+            </FileInputDialog>
           </div>
 
           <div className="flex">

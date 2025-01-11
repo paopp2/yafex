@@ -6,6 +6,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useFileSystem } from "@/core/fileSystem/useFileSystem";
+import { Fragment } from "react/jsx-runtime";
 
 export function Breadcrumbs() {
   const { currentPath, navigateTo } = useFileSystem();
@@ -23,15 +24,15 @@ export function Breadcrumbs() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        {pathSegments.map((item, index) => (
-          <>
+        {pathSegments.map((segment, index) => (
+          <Fragment key={segment}>
             <BreadcrumbItem>
               <BreadcrumbLink onClick={() => handlePathClick(index)}>
-                {item}
+                {segment}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-          </>
+          </Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>

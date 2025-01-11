@@ -3,7 +3,9 @@ import { DELIMITER } from "./fileSystem";
 export interface File {
   name: string;
   path: string;
+  dirPath: string;
   isFile: boolean;
+  content?: string;
 }
 
 export class FileNode {
@@ -31,11 +33,13 @@ export class FileNode {
     return this.path.split(DELIMITER).filter(Boolean).pop() ?? "";
   }
 
-  asFile(): File {
+  asFile(content?: string): File {
     return {
       name: this.name,
-      path: this.dirPath,
+      path: this.path,
+      dirPath: this.dirPath,
       isFile: this.isFile,
+      content,
     };
   }
 }

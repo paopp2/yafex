@@ -3,7 +3,11 @@ import { cn } from "@/lib/utils";
 import { useFileSystem } from "@/core/fileSystem/useFileSystem";
 import { File } from "@/core/fileSystem/fileNode";
 
-export function FileListTile(file: File) {
+type Props = {
+  file: File;
+};
+
+export function FileListTile({ file }: Props) {
   const { navigateTo } = useFileSystem();
 
   return (
@@ -14,11 +18,8 @@ export function FileListTile(file: File) {
         !file.isFile && "bg-muted/50"
       )}
       onDoubleClick={() => {
-        if (!file.isFile) {
-          navigateTo(file.path);
-        }
-
-        // TODO: Open file
+        if (file.isFile) return;
+        navigateTo(file.dirPath);
       }}
     >
       {!file.isFile ? (

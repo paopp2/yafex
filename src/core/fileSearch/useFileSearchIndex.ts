@@ -2,7 +2,7 @@ import { atom, useAtom } from "jotai";
 import { File } from "../fileSystem/fileNode";
 import fuzzysort from "fuzzysort";
 
-const idToFileAtom = atom<Record<string, File>>({});
+export const idToFileAtom = atom<Record<string, File>>({});
 
 export const useFileSearchIndex = () => {
   const [idToFile, setIdToFile] = useAtom(idToFileAtom);

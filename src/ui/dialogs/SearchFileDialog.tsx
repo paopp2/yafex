@@ -26,7 +26,7 @@ export function SearchFileDialog() {
   };
 
   const onSelect = (file: File) => {
-    navigateTo(file.path);
+    navigateTo(file.dirPath);
     setOpen(false);
   };
 
@@ -60,12 +60,12 @@ export function SearchFileDialog() {
                   value={file.name}
                   onSelect={() => onSelect(file)}
                 >
-                  <FileIcon className="mr-2 h-4 w-4" />
+                  <FileIcon className="mr-2 h-4 w-4 " />
                   {file.name}
                 </CommandItem>
               ) : (
                 <CommandItem key={file.name} onSelect={() => onSelect(file)}>
-                  <FolderIcon className="mr-2 h-4 w-4" />
+                  <FolderIcon className="mr-2 h-4 w-4  text-gray-500 fill-gray-500" />
                   {file.name}
                 </CommandItem>
               )
