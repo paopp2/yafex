@@ -1,18 +1,11 @@
-import { FileSystem } from "./fileSystem";
 import { useMemo } from "react";
-import { atom, useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { File } from "./fileNode";
-import {
-  idToFileAtom,
-  useFileSearchIndex,
-} from "../fileSearch/useFileSearchIndex";
-
-export const fileSystemAtom = atom<FileSystem>(new FileSystem());
-
-const currentPathAtom = atom<string>("/");
+import { useFileSearchIndex } from "../fileSearch/useFileSearchIndex";
+import { fileSystemAtom, pathToFileMapAtom, currentPathAtom } from "../store";
 
 export const useFileSystem = () => {
-  const idToFile = useAtomValue(idToFileAtom);
+  const pathToFileMap = useAtomValue(pathToFileMapAtom);
   const [fileSystem, setFileSystem] = useAtom(fileSystemAtom);
   const [currentPath, setCurrentPath] = useAtom(currentPathAtom);
   const { addToIndex } = useFileSearchIndex();
@@ -20,8 +13,8 @@ export const useFileSystem = () => {
   const currentPathFiles: File[] = useMemo(() => {
     return fileSystem
       .listNodes(currentPath)
-      .map((node) => node.asFile(idToFile[node.path]?.content));
-  }, [fileSystem, currentPath, idToFile]);
+      .map((node) => node.asFile(pathToFileMap[node.path]?.content));
+  }, [fileSystem, currentPath, pathToFileMap]);
 
   const createFile = (fileName: string, fileContent?: string) => {
     const newNode = fileSystem.insertNode(`${currentPath}/${fileName}`, {

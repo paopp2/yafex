@@ -1,20 +1,19 @@
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { File } from "../fileSystem/fileNode";
 import fuzzysort from "fuzzysort";
-
-export const idToFileAtom = atom<Record<string, File>>({});
+import { pathToFileMapAtom } from "../store";
 
 export const useFileSearchIndex = () => {
-  const [idToFile, setIdToFile] = useAtom(idToFileAtom);
+  const [pathToFileMap, setPathToFileMap] = useAtom(pathToFileMapAtom);
 
   const addToIndex = (file: File) => {
-    setIdToFile((prev) => ({ ...prev, [file.path]: file }));
+    setPathToFileMap((prev) => ({ ...prev, [file.path]: file }));
   };
 
   const search = (query: string): File[] => {
     return fuzzysort
-      .go(query, Object.values(idToFile), {
-        keys: ["path", "name"],
+      .go(query, Object.values(pathToFileMap), {
+        keys: ["path", "name", "content"],
       })
       .map((result) => result.obj);
   };
