@@ -12,7 +12,7 @@ export function FileList() {
           No files found
         </div>
       ) : (
-        files.map((file: File) => <FileListTile key={file.path} {...file} />)
+        files.map((file: File) => <FileListTile key={file.name} {...file} />)
       )}
     </div>
   );

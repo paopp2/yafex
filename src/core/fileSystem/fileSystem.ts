@@ -36,10 +36,6 @@ export class FileSystem {
     }
 
     node.isFile = isFile;
-    if (isFile) {
-      node.path = parts[parts.length - 1];
-    }
-
     return node;
   }
 
