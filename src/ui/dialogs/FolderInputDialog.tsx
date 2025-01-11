@@ -18,6 +18,12 @@ export function FolderInputDialog() {
   const [folderName, setFolderName] = useState("");
   const { createFolder } = useFileSystem();
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      handleCreateFolder();
+    }
+  };
+
   const handleCreateFolder = () => {
     createFolder(folderName);
     setIsFolderDialogOpen(false);
@@ -31,7 +37,7 @@ export function FolderInputDialog() {
           New Folder
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent onKeyDown={handleKeyDown}>
         <DialogHeader>
           <DialogTitle>Create New Folder</DialogTitle>
           <DialogDescription>

@@ -29,8 +29,17 @@ export function FileInputDialogContent({
   const [fileName, setFileName] = useState(name);
   const [fileContent, setFileContent] = useState(content);
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      onSubmit({
+        name: fileName,
+        content: fileContent,
+      });
+    }
+  };
+
   return (
-    <DialogContent className="sm:max-w-[525px]">
+    <DialogContent className="sm:max-w-[525px]" onKeyDown={handleKeyDown}>
       <DialogHeader>
         <DialogTitle>Create New File</DialogTitle>
         <DialogDescription>
