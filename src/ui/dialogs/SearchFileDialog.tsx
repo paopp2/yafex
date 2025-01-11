@@ -38,13 +38,13 @@ export function SearchFileDialog() {
           className="w-[300px] justify-start text-muted-foreground"
         >
           <Search className="mr-2 h-4 w-4" />
-          Search files...
+          Search files, folders, content...
         </Button>
       </DialogTrigger>
       <DialogContent className="p-0">
         <Command shouldFilter={false}>
           <CommandInput
-            placeholder="Search files..."
+            placeholder="Search files, folders, content..."
             value={value}
             onValueChange={(value) => {
               setValue(value);
