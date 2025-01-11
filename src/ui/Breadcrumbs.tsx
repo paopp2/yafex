@@ -3,10 +3,8 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Fragment } from "react";
 import { useFileSystem } from "@/core/fileSystem/useFileSystem";
 
 export function Breadcrumbs() {
@@ -26,20 +24,14 @@ export function Breadcrumbs() {
     <Breadcrumb>
       <BreadcrumbList>
         {pathSegments.map((item, index) => (
-          <Fragment key={index}>
-            {index === currentPath.length - 1 ? (
-              <BreadcrumbPage>{item}</BreadcrumbPage>
-            ) : (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink onClick={() => handlePathClick(index)}>
-                    {item}
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-          </Fragment>
+          <>
+            <BreadcrumbItem>
+              <BreadcrumbLink onClick={() => handlePathClick(index)}>
+                {item}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+          </>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
