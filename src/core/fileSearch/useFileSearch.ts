@@ -10,7 +10,10 @@ export const useFileSearch = () => {
     setPathToFileMap((prev) => ({ ...prev, [file.path]: file }));
   };
 
-  const search = (query: string): File[] => {
+  const search = async (query: string): Promise<File[]> => {
+    // TODO: Just for demo purposes, should be removed in the future
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
     return fuzzysort
       .go(query, Object.values(pathToFileMap), {
         keys: ["path", "name", "content"],

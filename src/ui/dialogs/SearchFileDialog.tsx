@@ -12,6 +12,7 @@ import { useFileSearch } from "@/core/fileSearch/useFileSearch";
 import { useState } from "react";
 import { File } from "@/core/fileSystem/fileNode";
 import { useFileSystem } from "@/core/fileSystem/useFileSystem";
+import { useDebouncedCallback } from "use-debounce";
 
 export function SearchFileDialog() {
   const [open, setOpen] = useState(false);
@@ -20,10 +21,10 @@ export function SearchFileDialog() {
   const { search } = useFileSearch();
   const { navigateTo } = useFileSystem();
 
-  const onChange = (query: string) => {
-    const results = search(query);
+  const onChange = useDebouncedCallback(async (query: string) => {
+    const results = await search(query);
     setResults(results);
-  };
+  }, 200);
 
   const onSelect = (file: File) => {
     navigateTo(file.dirPath);
