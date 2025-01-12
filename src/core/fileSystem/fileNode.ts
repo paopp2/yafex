@@ -11,6 +11,7 @@ export interface File {
 export class FileNode {
   path: string;
   children: Map<string, FileNode>;
+  /** Is a folder if `!isFile` */
   isFile: boolean;
 
   constructor(name: string, isFile: boolean = false) {
