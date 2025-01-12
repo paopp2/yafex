@@ -59,7 +59,9 @@ export function FolderInputDialog() {
           >
             Cancel
           </Button>
-          <Button onClick={handleCreateFolder}>Create Folder</Button>
+          <Button disabled={!folderName} onClick={handleCreateFolder}>
+            Create Folder
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

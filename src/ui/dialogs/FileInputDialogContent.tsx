@@ -77,6 +77,7 @@ export function FileInputDialogContent({
           Cancel
         </Button>
         <Button
+          disabled={!fileName}
           onClick={() =>
             onSubmit({
               name: fileName,
