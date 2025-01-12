@@ -2,9 +2,7 @@
 
 A simple in-browser file explorer that could store text files and folders (note: as of writing, reloading would remove all your files and folders. So you know.. maybe not the best to save important stuff. **But other than that, it's great!**)
 
-
 https://github.com/user-attachments/assets/96f665b1-0753-4641-b826-05a35a0e3c2f
-
 
 ## Features
 
@@ -19,6 +17,7 @@ https://github.com/user-attachments/assets/96f665b1-0753-4641-b826-05a35a0e3c2f
 ## Technologies
 
 - Built with React + Typescript (Vite)
+- [Jotai](https://jotai.org/) for state management
 
 ### Installation
 
@@ -50,7 +49,7 @@ src/
 
 ## TODO
 
-- [ ] Persist files/folders on reload (I think it's more useful this way)
+- [ ] Persist files/folders on reload (duh)
 - [ ] Rename files/folders
 - [ ] Delete files/folders
 - [ ] Move files/folders
