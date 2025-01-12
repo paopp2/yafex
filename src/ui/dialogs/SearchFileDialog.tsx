@@ -53,17 +53,17 @@ export function SearchFileDialog() {
             {results.map((file) =>
               file.isFile ? (
                 <CommandItem
-                  key={file.name}
-                  value={file.name}
+                  key={file.path}
+                  value={file.path}
                   onSelect={() => onSelect(file)}
                 >
                   <FileIcon className="mr-2 h-4 w-4 " />
-                  {file.name}
+                  {file.path}
                 </CommandItem>
               ) : (
-                <CommandItem key={file.name} onSelect={() => onSelect(file)}>
+                <CommandItem key={file.path} onSelect={() => onSelect(file)}>
                   <FolderIcon className="mr-2 h-4 w-4  text-gray-500 fill-gray-500" />
-                  {file.name}
+                  {file.path}
                 </CommandItem>
               )
             )}
