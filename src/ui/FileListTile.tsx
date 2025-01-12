@@ -2,12 +2,15 @@ import { ChevronRightIcon, FileIcon, FolderIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useFileSystem } from "@/core/fileSystem/useFileSystem";
 import { File } from "@/core/fileSystem/fileNode";
+import { FileInputDialog } from "./dialogs/FileInputDialog";
+import { useState } from "react";
 
 type Props = {
   file: File;
 };
 
 export function FileListTile({ file }: Props) {
+  const [fileInputOpen, setFileInputOpen] = useState(false);
   const { navigateTo } = useFileSystem();
 
   return (
@@ -18,7 +21,11 @@ export function FileListTile({ file }: Props) {
         !file.isFile && "bg-muted/50"
       )}
       onDoubleClick={() => {
-        if (file.isFile) return;
+        if (file.isFile) {
+          setFileInputOpen(true);
+          return;
+        }
+
         navigateTo(file.dirPath);
       }}
     >
@@ -29,6 +36,13 @@ export function FileListTile({ file }: Props) {
       )}
       <span className="flex-1">{file.name}</span>
       {!file.isFile && <ChevronRightIcon className="h-4 w-4 text-gray-500" />}
+
+      <FileInputDialog
+        name={file.name}
+        content={file.content}
+        open={fileInputOpen}
+        setOpen={setFileInputOpen}
+      />
     </div>
   );
 }

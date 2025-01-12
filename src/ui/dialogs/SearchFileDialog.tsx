@@ -16,8 +16,8 @@ import { useDebouncedCallback } from "use-debounce";
 
 export function SearchFileDialog() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
   const [results, setResults] = useState<File[]>([]);
+
   const { search } = useFileSearch();
   const { navigateTo } = useFileSystem();
 
@@ -46,11 +46,7 @@ export function SearchFileDialog() {
         <Command shouldFilter={false}>
           <CommandInput
             placeholder="Search files, folders, content..."
-            value={value}
-            onValueChange={(value) => {
-              setValue(value);
-              onChange(value);
-            }}
+            onValueChange={(value) => onChange(value)}
           />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>

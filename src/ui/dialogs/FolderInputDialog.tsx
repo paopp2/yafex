@@ -3,18 +3,20 @@ import {
   DialogHeader,
   DialogFooter,
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useFileSystem } from "@/core/fileSystem/useFileSystem";
-import { FolderPlusIcon } from "lucide-react";
 import { useState } from "react";
 
-export function FolderInputDialog() {
-  const [isFolderDialogOpen, setIsFolderDialogOpen] = useState(false);
+type Props = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+};
+
+export function FolderInputDialog({ open, setOpen }: Props) {
   const [folderName, setFolderName] = useState("");
   const { createFolder } = useFileSystem();
 
@@ -26,17 +28,11 @@ export function FolderInputDialog() {
 
   const handleCreateFolder = () => {
     createFolder(folderName);
-    setIsFolderDialogOpen(false);
+    setOpen(false);
   };
 
   return (
-    <Dialog open={isFolderDialogOpen} onOpenChange={setIsFolderDialogOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline">
-          <FolderPlusIcon className="h-4 w-4 mr-2" />
-          New Folder
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent onKeyDown={handleKeyDown}>
         <DialogHeader>
           <DialogTitle>Create New Folder</DialogTitle>
@@ -53,10 +49,7 @@ export function FolderInputDialog() {
           />
         </div>
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => setIsFolderDialogOpen(false)}
-          >
+          <Button variant="outline" onClick={() => setOpen(false)}>
             Cancel
           </Button>
           <Button disabled={!folderName} onClick={handleCreateFolder}>
