@@ -65,7 +65,29 @@ export class FileSystem {
     return result;
   }
 
-  private searchNode(path: string): FileNode | null {
+  /** Recursively count node's children */
+  countChildren = (
+    node: FileNode
+  ): { folderCount: number; fileCount: number } => {
+    let fileCount = 0;
+    let folderCount = 0;
+
+    for (const child of node.children.values()) {
+      const childCounts = this.countChildren(child);
+      fileCount += childCounts.fileCount;
+      folderCount += childCounts.folderCount;
+
+      fileCount += child.isFile ? 1 : 0;
+      folderCount += child.isFile ? 0 : 1;
+    }
+
+    return {
+      folderCount,
+      fileCount,
+    };
+  };
+
+  searchNode(path: string): FileNode | null {
     let node: FileNode = this.root;
     const parts = path.split(DELIMITER).filter(Boolean);
 

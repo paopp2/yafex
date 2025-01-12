@@ -16,6 +16,15 @@ export const useFileSystem = () => {
       .map((node) => node.asFile(pathToFileMap[node.path]?.content));
   }, [fileSystem, currentPath, pathToFileMap]);
 
+  const currentPathCounts = useMemo(() => {
+    const currentNode = fileSystem.searchNode(currentPath);
+    if (!currentNode) {
+      return { fileCount: 0, folderCount: 0 };
+    }
+
+    return fileSystem.countChildren(currentNode);
+  }, [fileSystem, currentPath]);
+
   const createFile = (fileName: string, fileContent?: string) => {
     const newNode = fileSystem.insertNode(`${currentPath}/${fileName}`, {
       isFile: true,
@@ -42,5 +51,6 @@ export const useFileSystem = () => {
     navigateTo,
     currentPath,
     currentPathFiles,
+    currentPathCounts,
   };
 };
